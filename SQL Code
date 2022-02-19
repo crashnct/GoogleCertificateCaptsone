@@ -1,0 +1,334 @@
+--Comining all 12 months into one temporary table title yearlong_tripdata
+WITH yearlong_tripdata AS
+(
+SELECT *
+FROM dbo.[202102-divvy-tripdata]
+UNION ALL
+SELECT *
+FROM dbo.[202103-divvy-tripdata]
+UNION ALL
+SELECT *
+FROM dbo.[202104-divvy-tripdata]
+UNION ALL
+SELECT *
+FROM dbo.[202105-divvy-tripdata]
+UNION ALL
+SELECT *
+FROM dbo.[202106-divvy-tripdata]
+UNION ALL
+SELECT *
+FROM dbo.[202107-divvy-tripdata]
+UNION ALL
+SELECT *
+FROM dbo.[202108-divvy-tripdata]
+UNION ALL
+SELECT *
+FROM dbo.[202109-divvy-tripdata]
+UNION ALL
+SELECT *
+FROM dbo.[202110-divvy-tripdata]
+UNION ALL
+SELECT *
+FROM dbo.[202111-divvy-tripdata]
+UNION ALL
+SELECT *
+FROM dbo.[202112-divvy-tripdata]
+UNION ALL
+SELECT *
+FROM dbo.[202201-divvy-tripdata]
+)
+
+---------Testing and  making sure they all combined
+--SELECT COUNT(*) as total_rides
+--FROM yearlong_tripdata
+--5,601,822 rows of data
+
+--Counting number of casual rides
+--SELECT COUNT(*) as total_casual_rides
+--FROM yearlong_tripdata
+--WHERE member_casual = 'casual'
+--Total Casual Rides 2,529,327
+
+--Counting number of member rides
+--SELECT COUNT(*) as total_member_rides
+--FROM yearlong_tripdata
+--WHERE member_casual = 'member';
+--Total Member Rides, 3,072,495
+
+---------Counting riders for each day of week total, member, and casual
+
+--Counting number of rides on Sunday
+--SELECT COUNT(*) as sunday_rides
+--FROM yearlong_tripdata
+--WHERE start_day = 1
+--747,503 total for Sunday
+
+--Counting number of member rides on Sunday
+--SELECT COUNT(*) as sunday_member_rides
+--FROM yearlong_tripdata
+--WHERE start_day =  1 AND member_casual = 'member'
+--336,493 total for members on Sunday
+
+--Counting number of casual rides on Sunday
+--SELECT COUNT(*) as sunday_casual_rides
+--FROM yearlong_tripdata
+--WHERE start_day = 1 AND member_casual = 'casual'
+--411,010 total for casual on Sunday
+
+--Counting number of rides on Monday
+--SELECT COUNT(*) as monday_rides
+--FROM yearlong_tripdata
+--WHERE start_day = 2
+--610,335 total for Monday
+
+--Counting number of member rides on Monday
+--SELECT COUNT(*) as monday_member_rides
+--FROM yearlong_tripdata
+--WHERE start_day =  2 AND member_casual = 'member'
+--371,940 total for members on Monday
+
+--Counting number of casual rides on Monday
+--SELECT COUNT(*) as monday_casual_rides
+--FROM yearlong_tripdata
+--WHERE start_day = 2 AND member_casual = 'casual'
+--238,395 total for casual on Monday
+
+--Counting number of rides on Tuesday
+--SELECT COUNT(*) as tuesday_rides
+--FROM yearlong_tripdata
+--WHERE start_day = 3
+--645,804 total for Tuesday
+
+--Counting number of member rides on Tuesday
+--SELECT COUNT(*) as tuesday_member_rides
+--FROM yearlong_tripdata
+--WHERE start_day =  3 AND member_casual = 'member'
+--416,307 total for members on Tuesday
+
+--Counting number of casual rides on Tuesday
+/*SELECT COUNT(*) as tuesday_casual_rides
+FROM yearlong_tripdata
+WHERE start_day = 3 AND member_casual = 'casual'*/
+--229,497 total for casual on Tuesday
+
+--Counting number of rides on Wednesday
+/*SELECT COUNT(*) as wednesday_rides
+FROM yearlong_tripdata
+WHERE start_day = 4*/
+--657,894 total for Wednesday
+
+--Counting number of member rides on Wednesday
+/*SELECT COUNT(*) as wednesday_member_rides
+FROM yearlong_tripdata
+WHERE start_day =  4 AND member_casual = 'member'*/
+--425,206 for members on Wednesday
+
+--Counting number of casual rides on Wednesday
+/*SELECT COUNT(*) as wednesday_casual_rides
+FROM yearlong_tripdata
+WHERE start_day = 4 AND member_casual = 'casual'*/
+--232,688 total for casual on Wednesday
+
+--Counting number of rides on Thursday
+/*SELECT COUNT(*) as thursday_rides
+FROM yearlong_tripdata
+WHERE start_day = 5*/
+--618,541 total for Thursday
+
+--Counting number of member rides on Thursday
+/*SELECT COUNT(*) as thursday_member_rides
+FROM yearlong_tripdata
+WHERE start_day = 5 AND member_casual = 'member'*/
+--389,131 for members on Thursday
+
+--Counting number of casual rides on Thursday
+/*SELECT COUNT(*) as thursday_casual_rides
+FROM yearlong_tripdata
+WHERE start_day = 5 AND member_casual = 'casual'*/
+--229,410 total for casual on Thursday
+
+--Counting number of rides on Friday
+/*SELECT COUNT(*) as friday_rides
+FROM yearlong_tripdata
+WHERE start_day = 6*/
+--672,623 total for Friday
+
+--Counting number of member rides on Friday
+/*SELECT COUNT(*) as friday_member_rides
+FROM yearlong_tripdata
+WHERE start_day = 6 AND member_casual = 'member'*/
+--380901 for members on Friday
+
+--Counting number of casual rides on Friday
+/*SELECT COUNT(*) as friday_casual_rides
+FROM yearlong_tripdata
+WHERE start_day = 6 AND member_casual = 'casual'*/
+--291,722 total for casual on Friday
+
+--Counting number of rides on Saturday
+/*SELECT COUNT(*) as saturday_rides
+FROM yearlong_tripdata
+WHERE start_day = 7*/
+--826,716 total for Saturday
+
+--Counting number of member rides on Saturday
+/*SELECT COUNT(*) as saturday_member_rides
+FROM yearlong_tripdata
+WHERE start_day = 7 AND member_casual = 'member'*/
+--372,165 for members on Saturday
+
+--Counting number of casual rides on Saturday
+/*SELECT COUNT(*) as saturday_casual_rides
+FROM yearlong_tripdata
+WHERE start_day = 7 AND member_casual = 'casual'*/
+--454,551 total for casual on Saturday
+
+------------MIN MAX and AVG of each day for total riders, members, and casuals
+
+--Determing MIN, MAX, and AVG minutes of travel time for Sunday
+/*SELECT MIN(ride_length) AS min_sunday, MAX(ride_length) AS max_sunday, AVG(CAST(ride_length AS INT)) AS avg_sunday
+FROM yearlong_tripdata
+WHERE start_day = 1 AND ride_length > 0)*/
+--MIN - 1 MAX - 999 AVG - 27
+
+--Determing MIN, MAX, and AVG minutes of travel time for Sunday members
+/*SELECT MIN(ride_length) AS min_sunday_members, MAX(ride_length) AS max_sunday_members, AVG(CAST(ride_length AS INT)) AS avg_sunday_members
+FROM yearlong_tripdata
+WHERE start_day = 1 AND ride_length > 0 AND member_casual = 'member'*/
+--MIN - 1 MAX - 990 AVG - 15
+
+--Determing MIN, MAX, and AVG minutes of travel time for Sunday casual
+/*SELECT MIN(ride_length) AS min_sunday_casual, MAX(ride_length) AS max_sunday_casual, AVG(CAST(ride_length AS INT)) AS avg_sunday_casual
+FROM yearlong_tripdata
+WHERE start_day = 1 AND ride_length > 0 AND member_casual = 'casual'*/
+--MIN - 1 MAX - 999 AVG - 37
+
+--Determing MIN, MAX, and AVG minutes of travel time for Monday
+/*SELECT MIN(ride_length) AS min_monday, MAX(ride_length) AS max_monday, AVG(CAST(ride_length AS INT)) AS avg_monday
+FROM yearlong_tripdata
+WHERE start_day = 2 AND ride_length > 0*/
+--MIN - 1 MAX - 999 AVG - 20
+
+--Determing MIN, MAX, and AVG minutes of travel time for Monday members
+/*SELECT MIN(ride_length) AS min_monday_members, MAX(ride_length) AS max_monday_members, AVG(CAST(ride_length AS INT)) AS avg_monday_members
+FROM yearlong_tripdata
+WHERE start_day = 2 AND ride_length > 0 AND member_casual = 'member'*/
+--MIN - 1 MAX - 999 AVG - 13
+
+--Determing MIN, MAX, and AVG minutes of travel time for Monday casual
+/*SELECT MIN(ride_length) AS min_monday_casual, MAX(ride_length) AS max_monday_casual, AVG(CAST(ride_length AS INT)) AS avg_monday_casual
+FROM yearlong_tripdata
+WHERE start_day = 2 AND ride_length > 0 AND member_casual = 'casual'*/
+--MIN - 1 MAX - 992 AVG - 31
+
+--Determing MIN, MAX, and AVG minutes of travel time for Tuesday
+/*SELECT MIN(ride_length) AS min_tuesday, MAX(ride_length) AS max_tuesday, AVG(CAST(ride_length AS INT)) AS avg_tuesday
+FROM yearlong_tripdata
+WHERE start_day = 3 AND ride_length > 0*/
+--MIN - 1 MAX - 991 AVG - 18
+
+--Determing MIN, MAX, and AVG minutes of travel time for Tuesday members
+/*SELECT MIN(ride_length) AS min_tuesday_members, MAX(ride_length) AS max_tuesday_members, AVG(CAST(ride_length AS INT)) AS avg_tuesday_members
+FROM yearlong_tripdata
+WHERE start_day = 3 AND ride_length > 0 AND member_casual = 'member'*/
+--MIN - 1 MAX - 991 AVG - 12
+
+--Determing MIN, MAX, and AVG minutes of travel time for Tuesday casual
+/*SELECT MIN(ride_length) AS min_tuesday_casual, MAX(ride_length) AS max_tuesday_casual, AVG(CAST(ride_length AS INT)) AS avg_tuesday_casual
+FROM yearlong_tripdata
+WHERE start_day = 3 AND ride_length > 0 AND member_casual = 'casual'*/
+--MIN - 1 MAX - 99 AVG - 28
+
+--Determing MIN, MAX, and AVG minutes of travel time for Wednesday
+/*SELECT MIN(ride_length) AS min_wednesday, MAX(ride_length) AS max_wednesday, AVG(CAST(ride_length AS INT)) AS avg_wednesday
+FROM yearlong_tripdata
+WHERE start_day = 4 AND ride_length > 0*/
+--MIN - 1 MAX - 999 AVG - 18
+
+--Determing MIN, MAX, and AVG minutes of travel time for Wednesday members
+/*SELECT MIN(ride_length) AS min_wednesday_members, MAX(ride_length) AS max_wednesday_members, AVG(CAST(ride_length AS INT)) AS avg_wednesday_members
+FROM yearlong_tripdata
+WHERE start_day = 4 AND ride_length > 0 AND member_casual = 'member'*/
+--MIN - 1 MAX - 999 AVG - 12
+
+--Determing MIN, MAX, and AVG minutes of travel time for Wednesday casual
+/*SELECT MIN(ride_length) AS min_wednesday_casual, MAX(ride_length) AS max_wednesday_casual, AVG(CAST(ride_length AS INT)) AS avg_wednesday_casual
+FROM yearlong_tripdata
+WHERE start_day = 4 AND ride_length > 0 AND member_casual = 'casual'*/
+--MIN - 1 MAX - 999 AVG - 27
+
+--Determing MIN, MAX, and AVG minutes of travel time for Thursday
+/*SELECT MIN(ride_length) AS min_thursday, MAX(ride_length) AS max_thursday, AVG(CAST(ride_length AS INT)) AS avg_thursday
+FROM yearlong_tripdata
+WHERE start_day = 5 AND ride_length > 0*/
+--MIN - 1 MAX - 999 AVG - 18
+
+--Determing MIN, MAX, and AVG minutes of travel time for Thursday members
+/*SELECT MIN(ride_length) AS min_thursday_members, MAX(ride_length) AS max_thursday_members, AVG(CAST(ride_length AS INT)) AS avg_thursday_members
+FROM yearlong_tripdata
+WHERE start_day = 5 AND ride_length > 0 AND member_casual = 'member'*/
+--MIN - 1 MAX - 999 AVG - 12
+
+--Determing MIN, MAX, and AVG minutes of travel time for Thursday casual
+/*SELECT MIN(ride_length) AS min_thursday_casual, MAX(ride_length) AS max_thursday_casual, AVG(CAST(ride_length AS INT)) AS avg_thursday_casual
+FROM yearlong_tripdata
+WHERE start_day = 5 AND ride_length > 0 AND member_casual = 'casual'*/
+--MIN - 1 MAX - 999 AVG - 27
+
+--Determing MIN, MAX, and AVG minutes of travel time for Friday
+/*SELECT MIN(ride_length) AS min_friday, MAX(ride_length) AS max_friday, AVG(CAST(ride_length AS INT)) AS avg_friday
+FROM yearlong_tripdata
+WHERE start_day = 6 AND ride_length > 0*/
+--MIN - 1 MAX - 998 AVG - 20
+
+--Determing MIN, MAX, and AVG minutes of travel time for Friday members
+/*SELECT MIN(ride_length) AS min_friday_members, MAX(ride_length) AS max_friday_members, AVG(CAST(ride_length AS INT)) AS avg_friday_members
+FROM yearlong_tripdata
+WHERE start_day = 6 AND ride_length > 0 AND member_casual = 'member'*/
+--MIN - 1 MAX - 990 AVG - 13
+
+--Determing MIN, MAX, and AVG minutes of travel time for Friday casual
+/*SELECT MIN(ride_length) AS min_friday_casual, MAX(ride_length) AS max_friday_casual, AVG(CAST(ride_length AS INT)) AS avg_friday_casual
+FROM yearlong_tripdata
+WHERE start_day = 6 AND ride_length > 0 AND member_casual = 'casual'*/
+--MIN - 1 MAX - 998 AVG - 30
+
+--Determing MIN, MAX, and AVG minutes of travel time for Saturday
+/*SELECT MIN(ride_length) AS min_saturday, MAX(ride_length) AS max_saturday, AVG(CAST(ride_length AS INT)) AS avg_saturday
+FROM yearlong_tripdata
+WHERE start_day = 7 AND ride_length > 0*/
+--MIN - 1 MAX - 999 AVG - 26
+
+--Determing MIN, MAX, and AVG minutes of travel time for Saturday members
+/*SELECT MIN(ride_length) AS min_saturday_members, MAX(ride_length) AS max_saturday_members, AVG(CAST(ride_length AS INT)) AS avg_saturday_members
+FROM yearlong_tripdata
+WHERE start_day = 7 AND ride_length > 0 AND member_casual = 'member'*/
+--MIN - 1 MAX - 99 AVG - 15
+
+--Determing MIN, MAX, and AVG minutes of travel time for Saturday casual
+/*SELECT MIN(ride_length) AS min_saturday_casual, MAX(ride_length) AS max_saturday_casual, AVG(CAST(ride_length AS INT)) AS avg_saturday_casual
+FROM yearlong_tripdata
+WHERE start_day = 7 AND ride_length > 0 AND member_casual = 'casual'*/
+--MIN - 1 MAX - 999 AVG - 34
+
+-----------Determing the number of total riders, members, and casual for each month
+
+-- total rides counted grouped by month
+/*SELECT COUNT(*) as total_ride, MONTH(started_at) as the_month
+FROM yearlong_tripdata
+GROUP BY MONTH(started_at)
+ORDER BY the_month*/
+
+-- total casual rides counted grouped by month
+/*SELECT COUNT(*) as total_ride, MONTH(started_at) as the_month
+FROM yearlong_tripdata
+WHERE member_casual = 'casual'
+GROUP BY MONTH(started_at)
+ORDER BY the_month*/
+
+-- total member rides counted grouped by month 
+/*SELECT COUNT(*) as total_ride, MONTH(started_at) as the_month
+FROM yearlong_tripdata
+WHERE member_casual = 'member'
+GROUP BY MONTH(started_at)
+ORDER BY the_month*/
